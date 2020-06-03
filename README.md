@@ -122,3 +122,61 @@ Confusion matrix for label grammar:
 
 # Class imbalance
 
+Class imbalance did exist in our dataset. For each class, we counted the number of documents that were subject to the topic and found that some topics were discussed more than others.
+
+| Class | Label Counts |
+| ------------- |:-------------:|
+|programming | 2050 |
+|style       | 479  |
+|reference   | 3181 |
+|java        | 799  |
+|web         | 2203 |
+|internet    | 1211 |
+|culture     | 1471 |
+|design      | 2221 |
+|education   | 1559 |
+|language    | 1004 |
+|books       | 1034 |
+|writing     | 939  |
+|computer    | 1049 |
+|english     | 725  |
+|politics    | 830  |
+|history     | 898  |
+|philosophy  | 598  |
+|science     | 1001 |
+|religion    | 411  |
+|grammar     | 224  |
+
+In the second appoach, we implemented a cost sensitive learning technique, where we gave each record a proper weight. We used a one vs rest technique to find the cost loss for each class. For each record, we created a cost matrix where True Positives and True Negatives were assigned to 0 and False Negatives and False Positives were computed using the following equations:
+
+```
+FN= 1/(percentage_of_examples_in class * number_of_samples)
+FP = 1/(percentage_of_examples_not_in class * number_of_samples)
+```
+
+The reason we used these equations was because the cost of losing a record that belonged to the class we were focusing was greater than classifying a document by mistake to the topic and as a result the percentage of examples that didn't belong to the class was bigger that the percentage that did belong.
+
+| Class | Label Counts |Cost Loss |
+| -------------|:-----------:|:-------------:|
+|programming | 2050 |0.9982920545807057 |
+|style       | 479  |1.0448010839348703 |
+|reference   | 3181 |1.015895874965261  |
+|java        | 799  |1.0918966241144887 |
+|web         | 2203 |1.0088941925218773 |
+|internet    | 1211 |1.0171099517860558 |
+|culture     | 1471 |1.0206941285880635 |
+|design      | 2221 |0.9855036803284339 |
+|education   | 1559 |0.9930770616477518 |
+|language    | 1004 |0.9874699792960665 |
+|books       | 1034 |1.047756608856901  |
+|writing     | 939  |0.999238386286178  |
+|computer    | 1049 |1.0268828332388904 |
+|english     | 725  |1.0102465953382924 |
+|politics    | 830  |0.9889704419779607 |
+|history     | 898  |0.9694101619567458 |
+|philosophy  | 598  |1.0008598030560543 |
+|science     | 1001 |0.9360056452287842 |
+|religion    | 411  |1.0071414681077542 |
+|grammar     | 224  |1.0296787423103213 |
+
+We compared the cost loss to the label counts and we found that the classes that occurred more in the dataset had the smallest cost loss.
