@@ -116,10 +116,6 @@ Confusion matrix for label grammar:
  [  95   38]]
 ```
 
-# Learning from Multi-Label data
-
-# Multi-Instance learning
-
 # Class imbalance
 
 Class imbalance did exist in our dataset. For each class, we counted the number of documents that were subject to the topic and found that some topics were discussed more than others.
